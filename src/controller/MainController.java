@@ -2,14 +2,18 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import org.apache.log4j.Logger;
 
 import model.FileDiscriminator;
+import model.SeparateProcess;
 
 import objects.EncodingProfile;
 import objects.MediaContainer;
@@ -18,7 +22,7 @@ import objects.ProfileType;
 import viewer.MainWindowView;
 
 public class MainController extends Controller{
-	public static final String VERSION = "1.3.1b (Modified)";
+	public static final String VERSION = "1.3.2b (Modified)";
 	private static final MediaContainer[] MEDIA_CONTAINERS = MediaContainer.values();
 	private ArrayList<MediaFile> mediaFiles;
 	private MainWindowView mainWindowView;
@@ -202,6 +206,63 @@ public class MainController extends Controller{
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public void viewLogs() {
+		JFileChooser fc = new JFileChooser();
+		File logsDir = new File(System.getProperty("user.dir"));
+		fc.setCurrentDirectory(logsDir);
+		
+		// set file filter
+		FileFilter ff = new FileFilter() {
+			public boolean accept(File f) {
+				return f.getName().matches("log\\.log|log\\.log\\.\\d{4}-\\d{2}-\\d{2}");
+			}
+			
+			public String getDescription() {
+				return "Log Files";
+			}
+		};
+		
+		fc.setFileFilter(ff);
+		
+		// set default text editor
+		logger.info("Getting default text editor");
+		String opencmd = "notepad.exe \"%1\"";
+		
+		// find user's default text editor, if one exists
+		String[] regcmd = {"reg", "query", "\"HKCR\\txtfile\\shell\\open\\command\"", "/v", "\"\""};
+		ArrayList<String> output;
+		SeparateProcess registryReader = new SeparateProcess(regcmd);
+		output = registryReader.runWithResults();
+
+		for(String s : output) {
+            // output has format: \n<Version information>\n\n<key>    <registry type>    <value>\n
+            if( s.contains("    ") && s.contains(".exe") ) {
+            	String[] parsed = s.split("    ");
+            	opencmd = parsed[parsed.length-1];
+            }
+		}
+		
+		int textEditorEnd = opencmd.indexOf(".exe") + ".exe".length();
+		if ( opencmd.contains(".exe\"") ) { textEditorEnd++; }
+		logger.info("Default text editor: " + opencmd.substring(0, textEditorEnd));
+		
+		logger.info("Launching log selection window");
+		if (fc.showOpenDialog(getMainWindow()) == JFileChooser.APPROVE_OPTION) {
+			// no quotes around %1 is okay, since log filenames don't have spaces
+			opencmd = opencmd.replaceAll("%1", fc.getSelectedFile().getName());
+			
+			ArrayList<String> cmd = new ArrayList<String>();
+			// first element is path to text editor
+			cmd.add(opencmd.substring(0, textEditorEnd));
+			// rest of array is arguments, split at spaces
+			cmd.addAll(Arrays.asList(opencmd.substring(textEditorEnd+1).split(" ")));
+			
+			SeparateProcess logeditor = new SeparateProcess(cmd.toArray(new String[cmd.size()]));
+			logeditor.run();
+			logger.info("Opened log: " + fc.getSelectedFile().getName());
+		}
+	}
+	
 	private EncodingProfile getEncodingProfileFromString(String s){
 		for(EncodingProfile p : audioProfiles){
 			String encodingProfileString = ProfileType.getProperName(p.getType()) + ": "+ p.getProperName();

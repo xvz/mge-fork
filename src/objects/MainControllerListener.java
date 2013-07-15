@@ -34,7 +34,7 @@ public class MainControllerListener implements ActionListener{
 		}else if(action.equals(ActionType.GO)){
 			INSTANCE.renderFiles();
 		}else if(action.equals(ActionType.LOG)){
-			//TODO: Implement this
+			INSTANCE.viewLogs();
 		}
 	}
 
