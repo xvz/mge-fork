@@ -1,0 +1,7 @@
+2013-07-15 v1.3.2b
+  * Implemented "View Logs" functionality.
+
+2013-07-15 v1.3.1b
+  * Clone of commit [5c9cb9] of original MGE.
+  * Fixed Java 7u21 update bug (Runtime.exec() changed).
+  * Modified version and about info.

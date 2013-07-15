@@ -2,7 +2,9 @@
 .classpath
 log.log
 log.log.*
+*~
 Thumbs.db
 bin/*
 release/*
+release/sample.zip
 !release/*.zip
