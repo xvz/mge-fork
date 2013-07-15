@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project MGE">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+		<delete dir="target" />
+		<delete file="MGE.tar.gz" />
+        <mkdir dir="target" />
+        <jar destfile="target/MGE.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="controller.Driver"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="thirdparty/jdom.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="thirdparty/log4j-1.2.8.jar"/>
+        </jar>
+	<mkdir dir="target/pictures" />	
+	
+	<copy file="pictures/Icon.png" todir="target/pictures" />
+	
+	<copy file="muxprofile.xml" todir="target" />
+		
+	<copy todir="target/thirdparty">
+		<fileset dir="thirdparty"/>
+	</copy>
+	<copy todir="target/configuration">
+		<fileset dir="configuration"/>
+	</copy>
+	
+	<tar destfile="MGE.tar" basedir="target" />
+	<gzip destfile="MGE.tar.gz" src="MGE.tar" />
+	<delete file="MGE.tar" />
+	
+	</target>
+</project>

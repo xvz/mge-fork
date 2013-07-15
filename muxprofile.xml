@@ -1,0 +1,45 @@
+ <TaggedJob xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EncodingSpeed />
+  <Job xsi:type="MuxJob">
+    <Input/>
+    <Output/>
+    <FilesToDelete />
+    <ContainerTypeString/>
+    <Codec />
+    <NbOfBFrames>0</NbOfBFrames>
+    <NbOfFrames>0</NbOfFrames>
+    <Bitrate>0</Bitrate>
+    <Overhead>4.3</Overhead>
+    <Settings>
+      <MuxedInput />
+      <MuxedOutput/>
+      <VideoInput/>
+      <AudioStreams>
+        <MuxStream>
+          <path/>
+          <TrackInfo>
+            <Language />
+            <Name />
+          </TrackInfo>
+          <delay>0</delay>
+          <language />
+          <name />
+        </MuxStream>
+      </AudioStreams>
+      <SubtitleStreams />
+      <Framerate/>
+      <ChapterFile />
+      <SplitSize xsi:nil="true" />
+      <DAR xsi:nil="true" />
+      <DeviceType>Standard</DeviceType>
+      <VideoName />
+    </Settings>
+    <MuxType/>
+  </Job>
+  <RequiredJobNames />
+  <EnabledJobNames />
+  <Name/>
+  <Status>WAITING</Status>
+  <Start>0001-01-01T00:00:00</Start>
+  <End>0001-01-01T00:00:00</End>
+  </TaggedJob>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<TaggedJob xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EncodingSpeed />
+  <Job xsi:type="MuxJob">
+    <Input>C:\Users\ajohnson\Downloads\Master Segment 1 - 12_Track1.h264</Input>
+    <Output>C:\Users\ajohnson\Downloads\Master Segment 1 - 12_Track1-muxed.m2ts</Output>
+    <FilesToDelete />
+    <ContainerTypeString>M2TS</ContainerTypeString>
+    <Codec />
+    <NbOfBFrames>0</NbOfBFrames>
+    <NbOfFrames>0</NbOfFrames>
+    <Bitrate>0</Bitrate>
+    <Overhead>4.3</Overhead>
+    <Settings>
+      <MuxedInput />
+      <MuxedOutput>C:\Users\ajohnson\Downloads\Master Segment 1 - 12_Track1-muxed.m2ts</MuxedOutput>
+      <VideoInput>C:\Users\ajohnson\Downloads\Master Segment 1 - 12_Track1.h264</VideoInput>
+      <AudioStreams>
+        <MuxStream>
+          <path>C:\Users\ajohnson\Downloads\Master Segment 1 - 12_Track2.aac</path>
+          <TrackInfo>
+            <Language />
+            <Name />
+          </TrackInfo>
+          <delay>0</delay>
+          <language />
+          <name />
+        </MuxStream>
+      </AudioStreams>
+      <SubtitleStreams />
+      <Framerate>23.976</Framerate>
+      <ChapterFile />
+      <SplitSize xsi:nil="true" />
+      <DAR xsi:nil="true" />
+      <DeviceType>Standard</DeviceType>
+      <VideoName />
+    </Settings>
+    <MuxType>TSMUXER</MuxType>
+  </Job>
+  <RequiredJobNames />
+  <EnabledJobNames />
+  <Name>job3</Name>
+  <Status>WAITING</Status>
+  <Start>0001-01-01T00:00:00</Start>
+  <End>0001-01-01T00:00:00</End>
+</TaggedJob>
