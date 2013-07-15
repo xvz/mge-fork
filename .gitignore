@@ -1,6 +1,8 @@
-bin/*
 .project
-.class
-target/*
-.log
-.DS_Store
+.classpath
+log.log
+log.log.*
+Thumbs.db
+bin/*
+release/*
+!release/*.zip
