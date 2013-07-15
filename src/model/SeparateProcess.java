@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 public class SeparateProcess implements Runnable{
-	private List<String> listOfCommands = null;
+	private List<String[]> listOfCommands = null;
 	private String[] environment = null;
 	private File dir = null;
 	private boolean closeOutputStream = true;
@@ -20,24 +21,24 @@ public class SeparateProcess implements Runnable{
 
 	private static Logger logger = Logger.getLogger(SeparateProcess.class.getName());
 
-	public SeparateProcess(List<String> command){
+	public SeparateProcess(List<String[]> command){
 		this.listOfCommands = command;	
 	}
 
-	public SeparateProcess(List<String> command, String[] environment){
+	public SeparateProcess(List<String[]> command, String[] environment){
 		this.listOfCommands = command;
 		this.environment = environment;
 
 	}
 
-	public SeparateProcess(List<String> command, String[] environment, File dir){
+	public SeparateProcess(List<String[]> command, String[] environment, File dir){
 		this.listOfCommands = command;
 		this.environment = environment;
 		this.dir = dir;
 	}
 
-	public SeparateProcess(String singleCommand){
-		ArrayList<String> command = new ArrayList<String>();
+	public SeparateProcess(String[] singleCommand){
+		ArrayList<String[]> command = new ArrayList<String[]>();
 		command.add(singleCommand);
 		listOfCommands = command;
 	}
@@ -49,9 +50,9 @@ public class SeparateProcess implements Runnable{
 		try {
 			if(withoutLogger){
 				int counter = 1;
-				for(String immediateCommand : listOfCommands){
+				for(String[] immediateCommand : listOfCommands){
 
-					logger.info("Executing: " + immediateCommand);
+					logger.info("Executing: " + Arrays.toString(immediateCommand));
 					logger.info("Environment: " + environment);
 					logger.info("Inside directory: " + dir);
 					mainProcess = Runtime.getRuntime().exec(immediateCommand, environment, dir);
@@ -83,9 +84,9 @@ public class SeparateProcess implements Runnable{
 				}
 			}else{
 				int counter = 1;
-				for(String immediateCommand : listOfCommands){
+				for(String[] immediateCommand : listOfCommands){
 
-					logger.info("Executing: " + immediateCommand);
+					logger.info("Executing: " + Arrays.toString(immediateCommand));
 					logger.info("Environment: " + environment);
 					logger.info("Inside directory: " + dir);
 					mainProcess = Runtime.getRuntime().exec(immediateCommand, environment, dir);
@@ -127,9 +128,9 @@ public class SeparateProcess implements Runnable{
 	public void runInLinearMode(){
 		try {
 			int counter = 1;
-			for(String immediateCommand : listOfCommands){
+			for(String[] immediateCommand : listOfCommands){
 
-				logger.info("Executing: " + immediateCommand);
+				logger.info("Executing: " + Arrays.toString(immediateCommand));
 				logger.info("Environment: " + environment);
 				logger.info("Inside directory: " + dir);
 				mainProcess = Runtime.getRuntime().exec(immediateCommand, environment, dir);
@@ -171,9 +172,9 @@ public class SeparateProcess implements Runnable{
 
 		try {
 
-			for(String immediateCommand : listOfCommands){
+			for(String[] immediateCommand : listOfCommands){
 
-				logger.info("Executing: " + immediateCommand);
+				logger.info("Executing: " + Arrays.toString(immediateCommand));
 				logger.info("Environment: " + environment);
 				logger.info("Inside directory: " + dir);
 				mainProcess = Runtime.getRuntime().exec(immediateCommand, environment, dir);

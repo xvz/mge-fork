@@ -18,7 +18,7 @@ import objects.ProfileType;
 import viewer.MainWindowView;
 
 public class MainController extends Controller{
-	public static final String VERSION = "Beta 0.1.3.b";
+	public static final String VERSION = "Beta 0.1.3.b (Modified)";
 	private static final MediaContainer[] MEDIA_CONTAINERS = MediaContainer.values();
 	private ArrayList<MediaFile> mediaFiles;
 	private MainWindowView mainWindowView;

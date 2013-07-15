@@ -384,7 +384,7 @@ public class EnvironmentSearchController {
 	 */
 	private boolean isMeGUIRunning(){
 		logger.info("Attempting to detect MeGUI Instance");
-		String command = "WMIC process get caption";
+		String[] command = {"WMIC", "process", "get", "caption"};
 		ArrayList<String> output;
 		SeparateProcess meGUIDetection = new SeparateProcess(command);
 		output = meGUIDetection.runWithResults();

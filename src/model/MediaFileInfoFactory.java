@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -57,16 +58,25 @@ public class MediaFileInfoFactory {
 		String fileName = randomID.toString() + "-mediaInfo.xml";
 		String mediaFileName = file.getFile().getAbsolutePath();
 		String mediaFileNameWithoutExtension = file.getPathWithoutExtension();
-		String command = "\"" +
-			mediaInfoExecutable_x86 +
-			"\"" +
-			" --output=xml --logfile=\"" +
-			mediaFileNameWithoutExtension + fileName + 
-			"\" \"" + mediaFileName + "\"";
-
+		
+		/* Runtime.exec(String[]) requires command arguments be broken at spaces.
+		 * For example,
+		 *
+		 *   "mediainfo.exe" --logfile="C:\terrible folder name\my file.xml"
+		 *
+		 * must be broken into array
+		 *
+		 *  ["\"mediainfo.exe\"", "--logfile=\"C:\\terrible", "folder", "name\\my", "file.xml\""]
+		 */
+		List<String> command = new ArrayList<String>();
+		String commandArgs = "--output=xml --logfile=\"" + mediaFileNameWithoutExtension + fileName + "\" \"" + mediaFileName + "\"";
+		
+		command.add("\"" + mediaInfoExecutable_x86 + "\"");
+		command.addAll(Arrays.asList(commandArgs.split(" ")));
+		
 		logger.info("Creating MediaInfo XML file: " + mediaFileNameWithoutExtension+fileName);
 
-		SeparateProcess mediaInfoProcess = new SeparateProcess(command);
+		SeparateProcess mediaInfoProcess = new SeparateProcess(command.toArray(new String[command.size()]));
 		mediaInfoProcess.setWithoutLogger(true);
 		mediaInfoProcess.setWaitFor(true);
 		Thread t1 = new Thread(mediaInfoProcess);
