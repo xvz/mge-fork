@@ -2,6 +2,7 @@
 .classpath
 log.log
 log.log.*
+TODO.txt
 *~
 Thumbs.db
 bin/*
